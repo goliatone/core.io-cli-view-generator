@@ -1,0 +1,35 @@
+{
+  "name": "core.io-view-generator",
+  "version": "0.0.0",
+  "description": "CRUD view generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goliatone/crud-view-generator.git"
+  },
+  "keywords": [
+    "crud",
+    "generator",
+    "scaffold",
+    "ejs",
+    "views"
+  ],
+  "author": "goliatone <hello@goliatone.com> (http://goliatone.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goliatone/crud-view-generator/issues"
+  },
+  "homepage": "https://github.com/goliatone/crud-view-generator#readme",
+  "dependencies": {
+    "expand-files": "^0.8.4",
+    "fs-exists-promised": "^0.2.0",
+    "handlebars": "^4.0.6",
+    "mkdir-promise": "^1.0.0",
+    "pretty-camel": "0.0.8",
+    "rmfr": "^1.0.2",
+    "swig": "^1.4.2"
+  }
+}
