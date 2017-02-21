@@ -1,0 +1,28 @@
+{{exportName}}
+<div id="form-content" class="content-table">
+    <table id="box_grid" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>{% for attribute in properties %}
+                <th>{{attribute.title-}}</th>{% endfor %}
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>{% for attribute in properties %}
+                <th>{{attribute.title-}}</th>{% endfor %}
+            </tr>
+        </tfoot>
+
+        <tbody>
+        <%
+            records && records.forEach(function(item){ %>
+                <tr>
+                {%- for attribute in properties %}
+                    <td>
+                        <%= item.{{loop.key}} %>
+                    </td>
+                {%- endfor %}
+                </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>

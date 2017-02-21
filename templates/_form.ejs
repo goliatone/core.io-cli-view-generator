@@ -1,0 +1,12 @@
+{% import './__inputs.swig' as form -%}
+<!--
+{{exportName}}
+-->
+<div id="form-content" class="content padded">
+    <form id="main-form" method="<%= method %>" action="<%= action %>">
+        {%- for prop in properties %}
+            {{ prop|json|safe -}}
+            {{- form.input(prop.type, prop, loop, false) -}}
+        {%- endfor %}
+    </form>
+</div>

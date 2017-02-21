@@ -1,0 +1,24 @@
+<div class="main-container" id="log-app">
+    <%- include('../_header') %>
+
+    <div class="section results-section">
+        <h3><%= capitalize(entityName)%></h3>
+
+        <div class="add-record">
+            <button id="add_record" type="button">Add <%= capitalize(entityName)%></button>
+        </div>
+        <% include _grid %>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $('#add_record').click(function(e){
+            var href = location.href.split('/');
+            href[href.length -1] = 'view';
+            var url = new URL(location.href);
+            var redirect = href.join('/') + '?redirect=' + encodeURIComponent(location.href);
+            window.location.href = redirect;
+        });
+    });
+</script>
