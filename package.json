@@ -26,6 +26,8 @@
   "dependencies": {
     "expand-files": "^0.8.4",
     "fs-exists-promised": "^0.2.0",
+    "gextend": "^0.3.0",
+    "gkeypath": "^0.6.0",
     "handlebars": "^4.0.6",
     "mkdir-promise": "^1.0.0",
     "pretty-camel": "0.0.8",
