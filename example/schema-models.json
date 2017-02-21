@@ -1,0 +1,123 @@
+{
+    "type": "object",
+    "required": [],
+    "properties": {
+        "box": {
+            "$ref": "#/definitions/box"
+        },
+        "boxset": {
+            "$ref": "#/definitions/boxset"
+        }
+    },
+    "definitions": {
+        "box": {
+            "type": "object",
+            "required": [
+                "id",
+                "uuid"
+            ],
+            "properties": {
+                "id": {
+                    "title": "Id",
+                    "type": "string",
+                    "primaryKey": true
+                },
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "uuid": {
+                    "title": "Uuid",
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "/^[-+]?([0-9]+|\\.[0-9]+|[0-9]+\\.[0-9]+)$/"
+                },
+                "eventName": {
+                    "title": "Event Name",
+                    "type": "string"
+                },
+                "eventResponse": {
+                    "title": "Event Response",
+                    "type": "string"
+                },
+                "eventAction": {
+                    "title": "Event Action",
+                    "default": "ACTIVATE",
+                    "type": "string"
+                },
+                "boxset": {
+                    "title": "Boxset",
+                    "type": {
+                        "$ref": "#/definitions/boxset"
+                    }
+                },
+                "status": {
+                    "title": "Status",
+                    "default": "available",
+                    "type": "string",
+                    "enum": [
+                        "available",
+                        "assigned",
+                        "delivered",
+                        "full",
+                        "broken"
+                    ]
+                }
+            },
+            "definitions": {},
+            "description": "",
+            "id": "/box",
+            "identity": "box",
+            "title": "Box",
+            "additionalProperties": true
+        },
+        "boxset": {
+            "type": "object",
+            "required": [
+                "uuid"
+            ],
+            "properties": {
+                "id": {
+                    "title": "Id",
+                    "type": "string",
+                    "primaryKey": true
+                },
+                "uuid": {
+                    "title": "Uuid",
+                    "type": "string"
+                },
+                "identifier": {
+                    "title": "Identifier",
+                    "type": "string"
+                },
+                "partitionId": {
+                    "title": "Partition Id",
+                    "type": "integer"
+                },
+                "serverId": {
+                    "title": "Server Id",
+                    "type": "integer"
+                },
+                "partition": {
+                    "title": "Partition",
+                    "type": "string"
+                },
+                "boxes": {
+                    "title": "Boxes",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/box"
+                    },
+                    "via": "boxset"
+                }
+            },
+            "definitions": {},
+            "description": "",
+            "id": "/boxset",
+            "identity": "boxset",
+            "title": "BoxSet",
+            "additionalProperties": false
+        }
+    },
+    "$schema": "http://json-schema.org/draft-04/schema#"
+}
