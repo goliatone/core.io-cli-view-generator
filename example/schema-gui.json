@@ -1,0 +1,311 @@
+[
+    {
+        "uri": "/box",
+        "now": "2017-02-21T05:02:28.448Z",
+        "label": "Box",
+        "identity": "box",
+        "description": "",
+        "definitions": {
+            "boxset": {
+                "type": "object",
+                "required": [
+                    "uuid"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "type": "string",
+                        "primaryKey": true
+                    },
+                    "uuid": {
+                        "title": "Uuid",
+                        "type": "string"
+                    },
+                    "identifier": {
+                        "title": "Identifier",
+                        "type": "string"
+                    },
+                    "partitionId": {
+                        "title": "Partition Id",
+                        "type": "integer"
+                    },
+                    "serverId": {
+                        "title": "Server Id",
+                        "type": "integer"
+                    },
+                    "partition": {
+                        "title": "Partition",
+                        "type": "string"
+                    },
+                    "boxes": {
+                        "title": "Boxes",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/box"
+                        },
+                        "via": "boxset"
+                    }
+                },
+                "definitions": {},
+                "description": "",
+                "id": "/boxset",
+                "identity": "boxset",
+                "title": "BoxSet",
+                "additionalProperties": false
+            }
+        },
+        "fields": [
+            {
+                "name": "id",
+                "label": "Id",
+                "entityType": "string",
+                "primaryKey": true,
+                "type": "text",
+                "element": "input",
+                "required": true
+            },
+            {
+                "name": "name",
+                "label": "Name",
+                "entityType": "string",
+                "type": "text",
+                "element": "input"
+            },
+            {
+                "name": "uuid",
+                "label": "Uuid",
+                "format": "uuid",
+                "entityType": "string",
+                "pattern": "/^[-+]?([0-9]+|\\.[0-9]+|[0-9]+\\.[0-9]+)$/",
+                "type": "text",
+                "element": "input",
+                "required": true
+            },
+            {
+                "name": "eventName",
+                "label": "Event Name",
+                "entityType": "string",
+                "type": "text",
+                "element": "input"
+            },
+            {
+                "name": "eventResponse",
+                "label": "Event Response",
+                "entityType": "string",
+                "type": "text",
+                "element": "input"
+            },
+            {
+                "name": "eventAction",
+                "label": "Event Action",
+                "entityType": "string",
+                "default": "ACTIVATE",
+                "type": "text",
+                "element": "input"
+            },
+            {
+                "name": "boxset",
+                "label": "Boxset",
+                "entityType": {
+                    "$ref": "#/definitions/boxset"
+                },
+                "uri": "/boxset",
+                "type": "text",
+                "element": "select",
+                "relType": "one-to-many"
+            },
+            {
+                "name": "status",
+                "label": "Status",
+                "entityType": "string",
+                "default": "available",
+                "type": "text",
+                "element": "select",
+                "options": [
+                    "available",
+                    "assigned",
+                    "delivered",
+                    "full",
+                    "broken"
+                ]
+            }
+        ]
+    },
+    {
+        "uri": "/boxset",
+        "now": "2017-02-21T05:02:28.448Z",
+        "label": "BoxSet",
+        "identity": "boxset",
+        "description": "",
+        "definitions": {
+            "boxes": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "uuid"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "type": "string",
+                        "primaryKey": true
+                    },
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "uuid": {
+                        "title": "Uuid",
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "/^[-+]?([0-9]+|\\.[0-9]+|[0-9]+\\.[0-9]+)$/"
+                    },
+                    "eventName": {
+                        "title": "Event Name",
+                        "type": "string"
+                    },
+                    "eventResponse": {
+                        "title": "Event Response",
+                        "type": "string"
+                    },
+                    "eventAction": {
+                        "title": "Event Action",
+                        "default": "ACTIVATE",
+                        "type": "string"
+                    },
+                    "boxset": {
+                        "title": "Boxset",
+                        "type": {
+                            "$ref": "#/definitions/boxset"
+                        },
+                        "uri": "/boxset"
+                    },
+                    "status": {
+                        "title": "Status",
+                        "default": "available",
+                        "type": "string",
+                        "enum": [
+                            "available",
+                            "assigned",
+                            "delivered",
+                            "full",
+                            "broken"
+                        ]
+                    }
+                },
+                "definitions": {
+                    "boxset": {
+                        "type": "object",
+                        "required": [
+                            "uuid"
+                        ],
+                        "properties": {
+                            "id": {
+                                "title": "Id",
+                                "type": "string",
+                                "primaryKey": true
+                            },
+                            "uuid": {
+                                "title": "Uuid",
+                                "type": "string"
+                            },
+                            "identifier": {
+                                "title": "Identifier",
+                                "type": "string"
+                            },
+                            "partitionId": {
+                                "title": "Partition Id",
+                                "type": "integer"
+                            },
+                            "serverId": {
+                                "title": "Server Id",
+                                "type": "integer"
+                            },
+                            "partition": {
+                                "title": "Partition",
+                                "type": "string"
+                            },
+                            "boxes": {
+                                "title": "Boxes",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/box"
+                                },
+                                "via": "boxset"
+                            }
+                        },
+                        "definitions": {},
+                        "description": "",
+                        "id": "/boxset",
+                        "identity": "boxset",
+                        "title": "BoxSet",
+                        "additionalProperties": false
+                    }
+                },
+                "description": "",
+                "id": "/box",
+                "identity": "box",
+                "title": "Box",
+                "additionalProperties": true
+            }
+        },
+        "fields": [
+            {
+                "name": "id",
+                "label": "Id",
+                "entityType": "string",
+                "primaryKey": true,
+                "type": "text",
+                "element": "input"
+            },
+            {
+                "name": "uuid",
+                "label": "Uuid",
+                "entityType": "string",
+                "type": "text",
+                "element": "input",
+                "required": true
+            },
+            {
+                "name": "identifier",
+                "label": "Identifier",
+                "entityType": "string",
+                "type": "text",
+                "element": "input"
+            },
+            {
+                "name": "partitionId",
+                "label": "Partition Id",
+                "entityType": "integer",
+                "type": "number",
+                "element": "input"
+            },
+            {
+                "name": "serverId",
+                "label": "Server Id",
+                "entityType": "integer",
+                "type": "number",
+                "element": "input"
+            },
+            {
+                "name": "partition",
+                "label": "Partition",
+                "entityType": "string",
+                "type": "text",
+                "element": "input"
+            },
+            {
+                "name": "boxes",
+                "label": "Boxes",
+                "entityType": "array",
+                "uri": "/box",
+                "type": "text",
+                "element": "input",
+                "items": {
+                    "$ref": "#/definitions/box"
+                },
+                "subType": "array"
+            }
+        ]
+    }
+]
