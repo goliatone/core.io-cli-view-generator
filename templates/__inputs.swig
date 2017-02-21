@@ -1,21 +1,23 @@
-{% macro input(type, item, loop) %}
-    {%-if item.enum %}
-        <select>
-            <option>A</option>
-            <option>B</option>
+{%- macro input(type, item) %}
+    {%-if item.element === 'select' %}
+        <label for="{{item.name}}">{{item.label}}</label>
+        <select id="{{identity + '_' + item.name}}" name={{item.name}}>
+            {%- for option in item.options -%}
+                <option value="{{option}}">{{option|title}}</option>
+            {% endfor %}
         </select>
-    {%-elseif type === "string" %}
-            <label for="{{loop.key }}">{{ item.title }}</label>
-            <input type="text" name="{{loop.key}}"
+    {%-elseif item.element === "input" %}
+            <label for="{{item.name}}">{{item.label}}</label>
+            <input type="{{item.type}}" name="{{item.name}}"
                 {%if item.required%}required{%endif%}
-                id="{{loop.key}}" placeholder="{{item.title}}"
-                value="<%= record.{{loop.key}} %>"/>
+                id="{{identity + '_' + item.name}}" placeholder="{{item.label}}"
+                value="<%= record.{{item.name}} ? record.{{item.name}} : {{item.default}}%>"/>
     {% else %}
             TDB {{type}}
     {% endif %}
 
-{% endmacro %}
+{%- endmacro %}
 
-{% macro button type label %}
-<button type="{{ type|default("submit") }}">{{ label|default("Submit") }}</button>
-{% endmacro %}
+{%- macro button(type, label) %}
+        <button type="{{ type|default("submit") }}">{{ label|default("Submit") }}</button>
+{%- endmacro %}
