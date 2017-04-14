@@ -4,8 +4,10 @@
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
                     name="{{item.name}}"
+                    data-uri="<%= urlFor('PUT', '{{item.name}}'); %>"
                     {%if item.relType%}data-rel="{{item.relType}}"{%endif%}
-                    class="form-control"
+                    value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
+                    class="js-select-autopopulate form-control"
                 >
                 {%- for option in item.options -%}
                     <option value="{{option}}">{{option|title}}</option>
@@ -18,7 +20,7 @@
                 <input type="{{item.type}}" name="{{item.name}}" {%if item.required%}required{%endif%} {%if item.pattern%}pattern="{{item.pattern}}"{%endif%}
                     id="{{identity + '_' + item.name}}"
                     placeholder="{{item.label}}"
-                    value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}'%>"
+                    value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
                     class="form-control"
                     />
             </div>
@@ -29,5 +31,5 @@
 {%- endmacro %}
 
 {%- macro button(type, label, type) %}
-        <button type="{{ type|default("submit") }}" clas="btn btn-{{type|default("default")}}">{{ label|default("Submit") }}</button>
+        <button type="{{ type|default("submit") }}" class="btn btn-{{type|default("default")}}">{{ label|default("Submit") }}</button>
 {%- endmacro %}
