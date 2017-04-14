@@ -30,26 +30,19 @@ function generate(schema, templates, target){
 
     schema = makeGUISchema(schema);
 
-    exists(target).then(()=>{
-        console.log('dir %s does exist', target);
+    mkdir(target).then(()=>{
         processModels(schema, templates, target);
-    }).catch(()=>{
-        console.log('dir %s does not exist', target);
-        mkdir(target).then(()=>{
-            processModels(schema, templates, target);
-        });
     });
 }
 
-function processModels(models, templates, target){
+function processModels(models, templates, target) {
     const Files = require('expand-files');
 
     models.map((model)=> {
         let config;
         let modelpath = join(target, model.identity);
 
-        mkdir(modelpath).then(()=>{
-            console.log('create directory for model "%s"', model.identity);
+        mkdir(modelpath).then(() => {
 
             config = Files({
                 cwd: templates
@@ -59,12 +52,23 @@ function processModels(models, templates, target){
                 mapDest:true,
                 dest: modelpath,
                 src: Compiler.pattern,
-            }).files.map((file)=>{
-                file.src.map((src)=>{
-                    let content = Compiler.parse(src, model);
+            }).files.map((file) => {
+
+                file.src.map((src) => {
+                    let content = false;
+                    try {
+                        content = Compiler.parse(src, model);
+                    } catch (e) {
+                        console.log('Error compiling %s', file.src);
+                        console.log('Error: %s', e.message);
+                        throw e;
+                    }
+
                     write(file.dest, content);
                 });
             });
+        }).catch((err) => {
+            console.error(err.message);
         });
     });
 }
@@ -72,9 +76,11 @@ function processModels(models, templates, target){
 
 let schema = require('./schema-models.json');
 
-// clean('./output').then(()=>{
-    generate(schema, './templates', './output');
-// });
+let outputdir = './output';
+
+clean('./output').then(()=>{
+    generate(schema, './templates', outputdir);
+});
 
 
 function uuid(){
