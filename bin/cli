@@ -14,8 +14,6 @@ prog
     .option('--clean', 'Should the contents of [source] be removed before running', prog.BOOL, GenerateCommand.DEFAULTS.options.clean)
     .option('--templates <path>', '<path> to template files', null, GenerateCommand.DEFAULTS.options.templates)
     .action((args, options, logger) => {
-        console.log(args, options);
-
         const command = new GenerateCommand({
             logger: logger
         });
