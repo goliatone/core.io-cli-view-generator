@@ -6,6 +6,9 @@
   "scripts": {
     "test": "npm test"
   },
+  "bin": {
+    "scaffold-views": "./bin/cli"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/goliatone/crud-view-generator.git"
@@ -24,6 +27,7 @@
   },
   "homepage": "https://github.com/goliatone/crud-view-generator#readme",
   "dependencies": {
+    "caporal": "^0.5.0",
     "expand-files": "^0.8.4",
     "fs-exists-promised": "^0.2.0",
     "gextend": "^0.3.0",
