@@ -1,5 +1,8 @@
 
-Generate CRUD views from a model schema. For each model create the following views:
+Generate CRUD views from a (swagerish) model schema. If you are using Waterline, you can generate the schema using the [waterline-to-json-schema](https://github.com/goliatone/waterline-to-json-schema) module.
+
+
+For each model create the following views:
 
 - `update`: Update
 - `create`: Create

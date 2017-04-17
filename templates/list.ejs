@@ -1,13 +1,28 @@
-<div class="main-container" id="log-app">
-    <%- include('../_header') %>
+<div class="row">
+    <div class="section results-section container">
+        <div class="row">
+            <div class="pull-left">
+                <h3><%= capitalize(entityName)%></h3>
+            </div>
 
-    <div class="section results-section">
-        <h3><%= capitalize(entityName)%></h3>
-
-        <div class="add-record">
-            <button id="add_record" type="button">Add <%= capitalize(entityName)%></button>
+            <div class="add-record pull-right">
+                <button id="add_record" type="button" class="btn btn-success">
+                    Add <%= capitalize(entityName)%>
+                </button>
+            </div>
         </div>
-        <% include _grid %>
+
+        <div class="row">
+            <% if(records.length === 0){ %>
+                <div class="well">
+                    <p class="lead">
+                        There are no records to show here yet.
+                    </p>
+                </div>
+            <% } else { %>
+                <% include _grid %>
+            <% } %>
+        </div>
     </div>
 </div>
 
@@ -15,7 +30,7 @@
     $(function(){
         $('#add_record').click(function(e){
             var href = location.href.split('/');
-            href[href.length -1] = 'view';
+            href[href.length -1] = 'new';
             var url = new URL(location.href);
             var redirect = href.join('/') + '?redirect=' + encodeURIComponent(location.href);
             window.location.href = redirect;

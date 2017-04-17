@@ -1,8 +1,8 @@
-<div class="main-container" id="log-app">
-    <%- include('../_header') %>
+<div class="main-container">
+    <div class="section results-section row">
 
-    <div class="section results-section">
-        <h3><%= capitalize(entityName)%> : <%= capitalize(crudAction) %></h3>
+        <h3><%= capitalize(entityName)%>: <%= capitalize(crudAction) %></h3>
+
         <% include _form %>
     </div>
 </div>
