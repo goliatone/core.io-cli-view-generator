@@ -16,11 +16,15 @@ class GenerateCommand {
 
         event.source = resolve(event.source);
         event.output = resolve(event.output);
+
         event.options.templates = resolve(event.options.templates);
 
         return this.loadSchema(event.source).then((schema) => {
             return clean(event.output, event.options.clean).then(()=> {
                 generate(schema, event.options.templates, event.output);
+            }).catch((err)=>{
+                this.logger.error(err);
+                return err;
             });
         }).catch((err)=> {
             this.logger.error(err);
