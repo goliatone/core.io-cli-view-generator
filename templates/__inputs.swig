@@ -1,5 +1,19 @@
 {%- macro input(type, item) %}
-    {%-if item.element === 'select' %}
+
+    {%-if item.primaryKey %}
+        <div class="form-group">
+            <label for="{{item.name}}">{{item.label}}</label>
+            <input type="{{item.type}}" name="{{item.name}}" {%if item.required%}required{%endif%} {%if item.pattern%}pattern="{{item.pattern}}"{%endif%}
+                id="{{identity + '_' + item.name}}"
+                placeholder="{{item.label}}"
+                <% if(crudAction !== 'create'){ %>
+                disabled="disabled"
+                <% } %>
+                value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
+                class="form-control"
+                />
+        </div>
+    {%-elseif item.element === 'select' %}
             <div class="form-group">
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
@@ -30,6 +44,11 @@
 
 {%- endmacro %}
 
-{%- macro button(type, label, type) %}
-        <button type="{{ type|default("submit") }}" class="btn btn-{{type|default("default")}}">{{ label|default("Submit") }}</button>
+{%- macro button(type, label, css) %}
+        <button
+            type="{{ type | default("submit") }}"
+            value="{{ label | default("Submit") }}"
+            class="btn btn-{{ css | default("default") }}">
+                {{ label | default("Submit") }}
+        </button>
 {%- endmacro %}
