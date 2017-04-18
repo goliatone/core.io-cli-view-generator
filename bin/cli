@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 'use strict';
 
 const prog = require('caporal');
@@ -14,13 +15,14 @@ prog
     .option('--clean', 'Should the contents of [source] be removed before running', prog.BOOL, GenerateCommand.DEFAULTS.options.clean)
     .option('--templates <path>', '<path> to template files', null, GenerateCommand.DEFAULTS.options.templates)
     .action((args, options, logger) => {
+
         const command = new GenerateCommand({
             logger: logger
         });
 
-        command.execute({
-            options: options
-        });
+        args.options = options;
+
+        command.execute(args).catch(logger.error);
     });
 
 prog.parse(process.argv);
