@@ -6,7 +6,10 @@
             </div>
 
             <div class="add-record pull-right">
-                <button id="add_record" type="button" class="btn btn-success">
+                <button id="add_record"
+                    data-action="create"
+                    type="button"
+                    class="js-add-record btn btn-success">
                     Add <%= capitalize(entityName)%>
                 </button>
             </div>
@@ -25,15 +28,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(function(){
-        $('#add_record').click(function(e){
-            var href = location.href.split('/');
-            href[href.length -1] = 'new';
-            var url = new URL(location.href);
-            var redirect = href.join('/') + '?redirect=' + encodeURIComponent(location.href);
-            window.location.href = redirect;
-        });
-    });
-</script>
