@@ -18,7 +18,13 @@
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
                     name="{{item.name}}"
+
+                    <% if(crudAction === 'create'){ %>
+                    data-uri="<%= urlFor('POST', '{{item.name}}'); %>"
+                    <% } else { %>
                     data-uri="<%= urlFor('PUT', '{{item.name}}'); %>"
+                    <% } %>
+
                     {%if item.relType%}data-rel="{{item.relType}}"{%endif%}
                     value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
                     class="js-select-autopopulate form-control"
