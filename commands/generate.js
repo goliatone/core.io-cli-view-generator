@@ -14,14 +14,16 @@ class GenerateCommand {
     execute(event) {
         event = extend({}, GenerateCommand.DEFAULTS, event);
 
-        event.source = resolve(event.source);
-        event.output = resolve(event.output);
+        event.source = event.pathSolver(event.source);
+        event.output = event.pathSolver(event.output);
 
-        event.options.templates = resolve(event.options.templates);
+        event.options.templates = event.pathSolver(event.options.templates);
+
+        let o = event.options;
 
         return this.loadSchema(event.source).then((schema) => {
-            return clean(event.output, event.options.clean).then(()=> {
-                generate(schema, event.options.templates, event.output);
+            return clean(event.output, o.clean).then(()=> {
+                generate(schema, o.templates, event.output, o.saveGuiSchema);
             }).catch((err)=>{
                 this.logger.error(err);
                 return err;
@@ -50,9 +52,11 @@ class GenerateCommand {
 GenerateCommand.DEFAULTS = {
     output: './output',
     source: './schema.json',
+    pathSolver: resolve,
     options: {
         clean: false,
         templates: './templates',
+        saveGuiSchema: false,
     }
 };
 
