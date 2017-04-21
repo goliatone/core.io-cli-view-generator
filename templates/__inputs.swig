@@ -13,6 +13,13 @@
                 class="form-control"
                 />
         </div>
+    {%-elseif item.entityType === 'object' %}
+    <div class="form-group">
+        <label for="{{item.name}}">{{item.label}}</label>
+        <textarea name="{{item.name}}" {%if item.required%}required{%endif%} {%if item.pattern%}pattern="{{item.pattern}}"{%endif%}
+            id="{{identity + '_' + item.name}}"
+            class="form-control js-json-editor"><%= record.{{item.name}} ? JSON.stringify(record.{{item.name}}, null, 4) : '{{item.default}}' %></textarea>
+    </div>
     {%-elseif item.element === 'select' %}
             <div class="form-group">
                 <label for="{{item.name}}">{{item.label}}</label>
