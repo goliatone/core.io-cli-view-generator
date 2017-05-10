@@ -65,3 +65,21 @@
                 {{ label | default("Submit") }}
         </button>
 {%- endmacro %}
+
+
+
+{%- macro styles(item) %}
+    {%-if item.entityType === 'object' %}
+    <link rel="stylesheet" href="/admin/css/codemirror.css" />
+    <link rel="stylesheet" href="/admin/css/codemirror-fold-gutter.css" />
+    <link rel="stylesheet" href="/admin/css/codemirror-theme.css" />
+    {% endif %}
+{%- endmacro %}
+
+{%- macro scripts(item) %}
+    {%-if item.entityType === 'object' %}
+    <script src="/admin/js/vendors/codemirror/codemirror.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/admin/js/vendors/codemirror/active-line.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/admin/js/vendors/codemirror/javascript.js" type="text/javascript" charset="utf-8"></script>
+    {% endif %}
+{%- endmacro %}
