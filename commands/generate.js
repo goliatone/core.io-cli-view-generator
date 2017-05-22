@@ -24,7 +24,7 @@ class GenerateCommand {
         return this.loadSchema(event.source).then((schema) => {
             return clean(event.output, o.clean).then(()=> {
                 generate(schema, o.templates, event.output, o.saveGuiSchema);
-            }).catch((err)=>{
+            }).catch((err) => {
                 this.logger.error(err);
                 return err;
             });
@@ -40,6 +40,7 @@ class GenerateCommand {
                 if(err) reject(err);
                 try {
                     let models = JSON.parse(content);
+                    console.log('models loaded', models && models.length);
                     resolve(models);
                 } catch(e) {
                     reject(e);
