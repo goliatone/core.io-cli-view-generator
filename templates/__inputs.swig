@@ -21,21 +21,46 @@
             class="form-control js-json-editor"><%= record.{{item.name}} ? JSON.stringify(record.{{item.name}}, null, 4) : '{{item.default}}' %></textarea>
     </div>
     {%-elseif item.element === 'select' %}
+    <code>
+        {{ prop|json|safe -}}
+    </code>
             <div class="form-group">
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
                     name="{{item.name}}"
 
                     <% if(crudAction === 'create'){ %>
-                    data-uri="<%= urlFor('POST', '{{item.name}}'); %>"
+                    data-uri="<%= urlFor('POST', '{{item.uri}}', locals.crudAction); %>"
                     <% } else { %>
-                    data-uri="<%= urlFor('PUT', '{{item.name}}'); %>"
+                    data-uri="<%= urlFor('PUT', '{{item.uri}}', locals.crudAction); %>"
+                    <% } %>
+                    {%if item.relType%}data-rel="{{item.relType}}"{%endif%}
+                    value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
+                    class="js-select-autopopulate form-control" >
+                {%- for option in item.options -%}
+                    <option value="{{option}}">{{option|title}}</option>
+                {% endfor %}
+                </select>
+            </div>
+    {%-elseif item.element === 'multiselect' %}
+    <code>
+        {{ prop|json|safe -}}
+    </code>
+            <div class="form-group">
+                <label for="{{item.name}}">{{item.label}}</label>
+                <select id="{{identity + '_' + item.name}}"
+                    name="{{item.name}}"
+
+                    <% if(crudAction === 'create'){ %>
+                    data-uri="<%= urlFor('POST', '{{item.uri}}', locals.crudAction); %>"
+                    <% } else { %>
+                    data-uri="<%= urlFor('PUT', '{{item.uri}}?{{identity}}='+record.id, locals.crudAction); %>"
                     <% } %>
 
                     {%if item.relType%}data-rel="{{item.relType}}"{%endif%}
                     value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
-                    class="js-select-autopopulate form-control"
-                >
+                    class="js-select-autopopulate form-control multiselect"
+                    multiple>
                 {%- for option in item.options -%}
                     <option value="{{option}}">{{option|title}}</option>
                 {% endfor %}
