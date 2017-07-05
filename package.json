@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goliatone/crud-view-generator.git"
+    "url": "git+https://github.com/goliatone/core.io-cli-view-generator.git"
   },
   "keywords": [
     "crud",
@@ -24,9 +24,9 @@
   "author": "goliatone <hello@goliatone.com> (http://goliatone.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/goliatone/crud-view-generator/issues"
+    "url": "https://github.com/goliatone/core.io-cli-view-generator/issues"
   },
-  "homepage": "https://github.com/goliatone/crud-view-generator#readme",
+  "homepage": "https://github.com/goliatone/core.io-cli-view-generator#readme",
   "dependencies": {
     "caporal": "^0.5.0",
     "expand-files": "^0.8.4",
