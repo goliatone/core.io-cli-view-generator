@@ -235,14 +235,13 @@ http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html
 -->
 
 
+### Generate Views
 
 Flow:
-1- `waterline-to-json-schema collect ./src/models` (output: waterline.json)
-2- `waterline-to-json-schema generate` (output: schema.json)
 
+1. `waterline-schema collect ./src/models` (output: waterline.json)
+2. `waterline-schema generate` (output: schema.json)
 
-3- `view-generator generate schema.json ./output/` --clean --save-gui-schema
+3. `scaffold-views generate schema.json ./output/ --clean --save-gui-schema`: Modify gui-schema.json to arrange fields as we want them, i.e move id field to be 1st.
 
-Modify gui-schema.json to arrange fields as we want them, i.e move id field to be 1st.
-
-4- `view-generator compile gui-schema.json` ./output/
+4. `scaffold-views compile gui-schema.json ./output/`
