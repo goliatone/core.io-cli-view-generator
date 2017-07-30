@@ -28,15 +28,20 @@
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
                     name="{{item.name}}"
-
+                    {%if item.relType%}
                     <% if(crudAction === 'create'){ %>
                     data-uri="<%= urlFor('POST', '{{item.uri}}', locals.crudAction); %>"
                     <% } else { %>
                     data-uri="<%= urlFor('PUT', '{{item.uri}}', locals.crudAction); %>"
                     <% } %>
-                    {%if item.relType%}data-rel="{{item.relType}}"{%endif%}
+                    data-rel="{{item.relType}}"
+                    {%endif%}
                     value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
-                    class="js-select-autopopulate form-control" >
+                    {%if item.relType%}
+                    class="js-select-autopopulate form-control"
+                    {%else%}
+                    class="form-control"
+                    {%endif%} >
                 {%- for option in item.options -%}
                     <option value="{{option}}">{{option|title}}</option>
                 {% endfor %}
@@ -95,16 +100,16 @@
 
 {%- macro styles(item) %}
     {%-if item.entityType === 'object' %}
-    <link rel="stylesheet" href="/admin/css/codemirror.css" />
-    <link rel="stylesheet" href="/admin/css/codemirror-fold-gutter.css" />
-    <link rel="stylesheet" href="/admin/css/codemirror-theme.css" />
+<link rel="stylesheet" href="/js/vendors/codemirror/css/codemirror.css" />
+<link rel="stylesheet" href="/js/vendors/codemirror/css/codemirror-fold-gutter.css" />
+<link rel="stylesheet" href="/js/vendors/codemirror/css/codemirror-theme.css" />
     {% endif %}
 {%- endmacro %}
 
 {%- macro scripts(item) %}
     {%-if item.entityType === 'object' %}
-    <script src="/admin/js/vendors/codemirror/codemirror.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/admin/js/vendors/codemirror/active-line.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/admin/js/vendors/codemirror/javascript.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/vendors/codemirror/codemirror.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/vendors/codemirror/active-line.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/vendors/codemirror/javascript.js" type="text/javascript" charset="utf-8"></script>
     {% endif %}
 {%- endmacro %}
