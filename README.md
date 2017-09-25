@@ -245,3 +245,33 @@ Flow:
 3. `scaffold-views generate schema.json ./output/ --clean --save-gui-schema`: Modify gui-schema.json to arrange fields as we want them, i.e move id field to be 1st.
 
 4. `scaffold-views compile gui-schema.json ./output/`
+
+
+### Templates
+
+A note on templates... potentially you are using templates to generate templates. The view generator uses the tags `{%` and `%}`. If you are mixing `ejs`, make sure you don't open tags without noticing:
+
+The following would break the cli template parsing:
+```ejs
+<% pagination.getPages().forEach((page)=>{%>
+    <li class="<%= page.active ? 'active' : ''%>">
+        <a href="<%= page.link%>">
+            <%= page.index %>
+        </a>
+    </li>
+<%})%>
+```
+
+Notice the `forEach((page)=>{%>`, yup, that `{%` it's an opening tag..
+
+Here we fix the issues:
+
+```ejs
+<% pagination.getPages().forEach((page)=> { %> <%# THIS! %>
+    <li class="<%= page.active ? 'active' : '' %>">
+        <a href="<%= page.link%>">
+            <%= page.index %>
+        </a>
+    </li>
+<% }) %><%# THIS! %>
+```
