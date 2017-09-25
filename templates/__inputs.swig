@@ -28,6 +28,8 @@
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
                     name="{{item.name}}"
+                    data-crudaction="<%= locals.crudAction %>"
+
                     {%if item.relType%}
                     <% if(crudAction === 'create'){ %>
                     data-uri="<%= urlFor('POST', '{{item.uri}}', locals.crudAction); %>"
@@ -55,6 +57,7 @@
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
                     name="{{item.name}}"
+                    data-crudaction="<%= locals.crudAction %>"
 
                     <% if(crudAction === 'create'){ %>
                     data-uri="<%= urlFor('POST', '{{item.uri}}', locals.crudAction); %>"
