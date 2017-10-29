@@ -1,15 +1,12 @@
 'use strict';
 const extend = require('gextend');
+const BaseCommand = require('./base');
 const clean = require('../lib/task-clean');
 const generate = require('../lib/generator').generateFromGUISchema;
 const readFile = require('fs').readFile;
 const resolve = require('path').resolve;
 
-class CompileCommand {
-
-    constructor(options = {}) {
-        extend(this, options);
-    }
+class CompileCommand extends BaseCommand {
 
     execute(event) {
         event = extend({}, CompileCommand.DEFAULTS, event);
@@ -47,6 +44,30 @@ class CompileCommand {
             });
         });
     }
+    static describe(prog, cmd){
+        cmd.argument('[source]', 
+            'Path to gui-schema', 
+            /.*/, 
+            CompileCommand.DEFAULTS.source
+        );
+
+        cmd.argument('[output]', 'Filename for output.', 
+            /.*/, 
+            CompileCommand.DEFAULTS.output
+        );
+
+        cmd.option('--clean', 
+            'Should the contents of [source] be removed before running', 
+            prog.BOOL, 
+            CompileCommand.DEFAULTS.options.clean
+        );
+
+        cmd.option('--templates <path>', 
+            '<path> to template files', 
+            null, 
+            CompileCommand.DEFAULTS.options.templates
+        );
+    }
 }
 
 CompileCommand.DEFAULTS = {
@@ -59,5 +80,8 @@ CompileCommand.DEFAULTS = {
         saveGuiSchema: false,
     }
 };
+
+CompileCommand.COMMAND_NAME = 'compile';
+CompileCommand.DESCRIPTION = 'Generate views from a GUI schema';
 
 module.exports = CompileCommand;

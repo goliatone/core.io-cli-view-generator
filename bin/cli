@@ -2,46 +2,19 @@
 
 'use strict';
 
-const prog = require('caporal');
 const pkg = require('../package.json');
-const CompileCommand = require('../commands/compile');
-const GenerateCommand = require('../commands/generate');
+const prog = require('caporal');
+const Commands = require('../commands');
+const updateNotifier = require('update-notifier');
+
+updateNotifier({
+    pkg: pkg
+}).notify();
 
 prog
     .version(pkg.version)
-    .description(pkg.description)
-    .command('generate', 'Generate views from a JSON schema')
-    .argument('[source]', 'Path to directory with models', /.*/, GenerateCommand.DEFAULTS.source)
-    .argument('[output]', 'Filename for output.', /.*/, GenerateCommand.DEFAULTS.output)
-    .option('--clean', 'Should the contents of [source] be removed before running', prog.BOOL, GenerateCommand.DEFAULTS.options.clean)
-    .option('--save-gui-schema', 'Saves a copy of the intermediary GUI schema file', prog.BOOL, GenerateCommand.DEFAULTS.options.saveGuiSchema)
-    .option('--templates <path>', '<path> to template files', null, GenerateCommand.DEFAULTS.options.templates)
-    .action((args, options, logger) => {
+    .description(pkg.description);
 
-        const command = new GenerateCommand({
-            logger: logger
-        });
-
-        args.options = options;
-
-        command.execute(args).catch(logger.error);
-    });
-
-prog
-    .command('compile', 'Generate views from a GUI schema ')
-    .argument('[source]', 'Path to gui-schema', /.*/, CompileCommand.DEFAULTS.source)
-    .argument('[output]', 'Filename for output.', /.*/, CompileCommand.DEFAULTS.output)
-    .option('--clean', 'Should the contents of [source] be removed before running', prog.BOOL, CompileCommand.DEFAULTS.options.clean)
-    .option('--templates <path>', '<path> to template files', null, CompileCommand.DEFAULTS.options.templates)
-    .action((args, options, logger) => {
-
-        const command = new CompileCommand({
-            logger: logger
-        });
-
-        args.options = options;
-
-        command.execute(args).catch(logger.error);
-    });
+Commands.attach(prog);
 
 prog.parse(process.argv);

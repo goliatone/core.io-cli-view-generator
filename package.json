@@ -29,6 +29,7 @@
   "homepage": "https://github.com/goliatone/core.io-cli-view-generator#readme",
   "dependencies": {
     "caporal": "^0.5.0",
+    "child-process-promise": "^2.2.1",
     "expand-files": "^0.8.4",
     "fs-exists-promised": "^0.2.0",
     "gextend": "^0.3.0",
@@ -37,6 +38,7 @@
     "mkdir-promise": "^1.0.0",
     "pretty-camel": "0.0.8",
     "rmfr": "^1.0.2",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "update-notifier": "^2.3.0"
   }
 }
