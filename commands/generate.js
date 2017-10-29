@@ -1,6 +1,8 @@
 'use strict';
+
 const extend = require('gextend');
-const BaseCommand = require('./base');
+const BaseCommand = require('base-cli-commands').BaseCommand;
+
 const clean = require('../lib/task-clean');
 const generate = require('../lib/generator');
 const readFile = require('fs').readFile;
