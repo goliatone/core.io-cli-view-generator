@@ -4,11 +4,11 @@ Generate CRUD views from a (swagerish) model schema. If you are using Waterline,
 ### CLI 
 
 ```
-   crud 0.1.3 - CRUD view generator
+   scaffold 0.1.3 - CRUD view generator
 
    USAGE
 
-     crud <command> [options]
+     scaffold <command> [options]
 
    COMMANDS
 
