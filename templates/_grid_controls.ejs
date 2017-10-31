@@ -1,26 +1,23 @@
 <!-- table controls-->
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6">
-        <div class="js-search input-group">
-            <span class="input-group-btn">
-                <button class="js-search-btn btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-            </span>
-            <input name="search-input" class="form-control" type="text" placeholder="Filter by Keyword">
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6">
-        <div class="btn-toolbar">
-            <div class="btn-group">
-                <button class="btn-menu btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Role<span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Employee</a></li>
-                    <li><a href="#">Member</a></li>
-                </ul>
-            </div>
-            <div class="btn-group">
-                <button class="btn btn-default" type="button" aria-haspopup="true" aria-expanded="false">Open</button>
-                <button class="btn btn-default" type="button" aria-haspopup="true" aria-expanded="false" active>Pending</button>
-                <button class="btn btn-default" type="button" aria-haspopup="true" aria-expanded="false">Closed</button>
+        <div class="form-group">
+            <div class="js-search input-group">
+                <span class="input-group-btn">
+                    <button class="js-search-btn btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+                <input name="search-input" class="form-control" type="search" placeholder="Filter by Keyword">
+                <span class="input-group-btn">
+                    <div class="select-wrapper form-control">
+                        <select class="js-search-filters btn-select" width="80">
+                        <option>Filters</option>
+                        <option>Filter1</option>
+                        <option>Filter2</option>
+                        </select><span class="caret"></span>
+                    </div>
+                </span> 
             </div>
         </div>
     </div>
@@ -48,20 +45,20 @@
         <nav aria-label="pagination">
             <ul class="pagination  pull-right">
                 <li class="<%= pagination.hasPrevPage() ? '' : 'disabled' %>">
-                        <a href="<%= pagination.prev()%>">Previous
+                        <a href="<%= pagination.prev() %>">Previous
                     </a>
                 </li>
 
                 <% pagination.getPages().forEach((page)=> { %>
                     <li class="<%= page.active ? 'active' : '' %>">
-                        <a href="<%= page.link%>">
+                        <a href="<%= page.link %>">
                             <%= page.index %>
                         </a>
                     </li>
                 <% }) %>
 
                 <li class="<%= pagination.hasNextPage() ? '' : 'disabled' %>">
-                    <a href="<%= pagination.next()%>">Next</a>
+                    <a href="<%= pagination.next() %>">Next</a>
                 </li>
             </ul>
         </nav>
