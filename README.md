@@ -213,6 +213,31 @@ The generated schema can be used in the `definitions` part of a Swagger Manifest
 }
 ```
 
+
+### Inputs
+
+To debug you might want to show what a field metadata contains. You can add the following entry in the `__inputs.swig` file on a field:
+
+```
+<code>{{ prop|json|safe -}}</code>
+```
+
+```json
+{
+    "name": "terminals",
+    "label": "Terminals",
+    "entityType": "array",
+    "uri": "/terminal",
+    "type": "text",
+    "element": "multiselect",
+    "items": {
+        "$ref": "#/definitions/terminal"
+    },
+    "subType": "array",
+    "relType": "many-to-one"
+}
+```
+
 <!--
 $ref: JSON Pointer https://tools.ietf.org/html/rfc6901
 
