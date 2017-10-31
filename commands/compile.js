@@ -21,8 +21,12 @@ class CompileCommand {
 
         let o = event.options;
 
+        // this.validateTemplateDir(o.templates);
+
         return this.loadSchema(event.source).then((schema) => {
+            console.log('Schema loaded...');
             return clean(event.output, o.clean).then(()=> {
+                console.log('output cleaned...');
                 generate(schema, o.templates, event.output, o.saveGuiSchema);
             }).catch((err)=>{
                 this.logger.error(err);
@@ -32,6 +36,10 @@ class CompileCommand {
             this.logger.error(err);
             return err;
         });
+    }
+
+    validateTemplateDir(templates){
+
     }
 
     loadSchema(filepath) {
