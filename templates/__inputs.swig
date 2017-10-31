@@ -21,24 +21,17 @@
             class="form-control js-json-editor"><%= record.{{item.name}} ? JSON.stringify(record.{{item.name}}, null, 4) : '{{item.default}}' %></textarea>
     </div>
     {%-elseif item.element === 'select' %}
-    <code>
-        {{ prop|json|safe -}}
-    </code>
             <div class="form-group">
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
                     name="{{item.name}}"
+                    data-reluri="<%= {{itm.uri}} %>"
                     data-crudaction="<%= locals.crudAction %>"
-
-                    {%if item.relType%}
-                    <% if(crudAction === 'create'){ %>
-                    data-uri="<%= urlFor('POST', '{{item.uri}}', locals.crudAction); %>"
-                    <% } else { %>
-                    data-uri="<%= urlFor('PUT', '{{item.uri}}', locals.crudAction); %>"
-                    <% } %>
+                    data-uri="<%= urlFor(locals.crudAction, '{{item.uri}}'); %>"
                     data-rel="{{item.relType}}"
-                    {%endif%}
+                    
                     value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
+
                     {%if item.relType%}
                     class="js-select-autopopulate form-control"
                     {%else%}
@@ -50,21 +43,13 @@
                 </select>
             </div>
     {%-elseif item.element === 'multiselect' %}
-    <code>
-        {{ prop|json|safe -}}
-    </code>
             <div class="form-group">
                 <label for="{{item.name}}">{{item.label}}</label>
                 <select id="{{identity + '_' + item.name}}"
                     name="{{item.name}}"
+                    data-reluri="<%= {{itm.uri}} %>"
                     data-crudaction="<%= locals.crudAction %>"
-
-                    <% if(crudAction === 'create'){ %>
-                    data-uri="<%= urlFor('POST', '{{item.uri}}', locals.crudAction); %>"
-                    <% } else { %>
-                    data-uri="<%= urlFor('PUT', '{{item.uri}}?{{identity}}='+record.id, locals.crudAction); %>"
-                    <% } %>
-
+                    data-uri="<%= urlFor(locals.crudAction, '{{item.uri}}'); %>"
                     {%if item.relType%}data-rel="{{item.relType}}"{%endif%}
                     value="<%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %>"
                     class="js-select-autopopulate form-control multiselect"
@@ -98,8 +83,6 @@
                 {{ label | default("Submit") }}
         </button>
 {%- endmacro %}
-
-
 
 {%- macro styles(item) %}
     {%-if item.entityType === 'object' %}
