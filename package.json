@@ -1,6 +1,6 @@
 {
   "name": "core.io-view-generator",
-  "version": "0.1.3",
+  "version": "0.2.1",
   "description": "CRUD view generator",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/goliatone/core.io-cli-view-generator#readme",
   "dependencies": {
-    "caporal": "^0.5.0",
+    "base-cli-commands": "*",
     "expand-files": "^0.8.4",
     "fs-exists-promised": "^0.2.0",
     "gextend": "^0.3.0",

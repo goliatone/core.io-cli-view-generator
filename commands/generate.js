@@ -1,15 +1,14 @@
 'use strict';
+
 const extend = require('gextend');
+const BaseCommand = require('base-cli-commands').BaseCommand;
+
 const clean = require('../lib/task-clean');
 const generate = require('../lib/generator');
 const readFile = require('fs').readFile;
 const resolve = require('path').resolve;
 
-class GenerateCommand {
-
-    constructor(options = {}) {
-        extend(this, options);
-    }
+class GenerateCommand extends BaseCommand {
 
     execute(event) {
         event = extend({}, GenerateCommand.DEFAULTS, event);
@@ -48,6 +47,38 @@ class GenerateCommand {
             });
         });
     }
+
+    static describe(prog, cmd){
+        cmd.argument('[source]', 
+            'Path to directory with models', 
+            /.*/, 
+            GenerateCommand.DEFAULTS.source
+        );
+        
+        cmd.argument('[output]', 
+            'Filename for output.', 
+            /.*/, 
+            GenerateCommand.DEFAULTS.output
+        );
+        
+        cmd.option('--clean', 
+            'Should the contents of [source] be removed before running', 
+            prog.BOOL, 
+            GenerateCommand.DEFAULTS.options.clean
+        );
+        
+        cmd.option('--save-gui-schema', 
+            'Saves a copy of the intermediary GUI schema file', 
+            prog.BOOL, 
+            GenerateCommand.DEFAULTS.options.saveGuiSchema
+        );
+        
+        cmd.option('--templates <path>', 
+            '<path> to template files', 
+            null, 
+            GenerateCommand.DEFAULTS.options.templates
+        );
+    }
 }
 
 GenerateCommand.DEFAULTS = {
@@ -60,5 +91,8 @@ GenerateCommand.DEFAULTS = {
         saveGuiSchema: false,
     }
 };
+
+GenerateCommand.COMMAND_NAME = 'open';
+GenerateCommand.DESCRIPTION = 'Generate views from a JSON schema';
 
 module.exports = GenerateCommand;

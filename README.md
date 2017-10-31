@@ -1,6 +1,29 @@
 
 Generate CRUD views from a (swagerish) model schema. If you are using Waterline, you can generate the schema using the [waterline-to-json-schema](https://github.com/goliatone/waterline-to-json-schema) module.
 
+### CLI 
+
+```
+   scaffold 0.1.3 - CRUD view generator
+
+   USAGE
+
+     scaffold <command> [options]
+
+   COMMANDS
+
+     compile [source] [output]      Generate views from a GUI schema
+     open [source] [output]         Generate views from a JSON schema
+     help <command>                 Display help for a specific command
+
+   GLOBAL OPTIONS
+
+     -h, --help         Display help
+     -V, --version      Display version
+     --no-color         Disable colors
+     --quiet            Quiet mode - only displays warn and error messages
+     -v, --verbose      Verbose mode - will also output debug messages
+```
 
 For each model create the following views:
 
