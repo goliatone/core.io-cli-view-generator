@@ -7,6 +7,7 @@ const clean = require('../lib/task-clean');
 const generate = require('../lib/generator');
 const readFile = require('fs').readFile;
 const resolve = require('path').resolve;
+const join = require('path').join;
 
 class GenerateCommand extends BaseCommand {
 
@@ -17,12 +18,13 @@ class GenerateCommand extends BaseCommand {
         event.output = event.pathSolver(event.output);
 
         event.options.templates = event.pathSolver(event.options.templates);
+        this.logger.info('templates', event.options.templates);
 
         let o = event.options;
 
         return this.loadSchema(event.source).then((schema) => {
             return clean(event.output, o.clean).then(()=> {
-                generate(schema, o.templates, event.output, o.saveGuiSchema);
+                return generate(schema, o.templates, event.output, o.saveGuiSchema);
             }).catch((err) => {
                 this.logger.error(err);
                 return err;
@@ -87,7 +89,7 @@ GenerateCommand.DEFAULTS = {
     pathSolver: resolve,
     options: {
         clean: false,
-        templates: './templates',
+        templates: join(__dirname, '../templates'),
         saveGuiSchema: false,
     }
 };
