@@ -92,7 +92,7 @@ GenerateCommand.DEFAULTS = {
     }
 };
 
-GenerateCommand.COMMAND_NAME = 'open';
+GenerateCommand.COMMAND_NAME = 'generate';
 GenerateCommand.DESCRIPTION = 'Generate views from a JSON schema';
 
 module.exports = GenerateCommand;
