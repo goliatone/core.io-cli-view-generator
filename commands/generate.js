@@ -7,6 +7,7 @@ const clean = require('../lib/task-clean');
 const generate = require('../lib/generator');
 const readFile = require('fs').readFile;
 const resolve = require('path').resolve;
+const join = require('path').join;
 
 class GenerateCommand extends BaseCommand {
 
@@ -17,6 +18,7 @@ class GenerateCommand extends BaseCommand {
         event.output = event.pathSolver(event.output);
 
         event.options.templates = event.pathSolver(event.options.templates);
+        this.logger.info('templates', event.options.templates);
 
         let o = event.options;
 
@@ -32,7 +34,7 @@ class GenerateCommand extends BaseCommand {
             return err;
         });
     }
-
+    //@TODO Make BaseCommand.loadJSON
     loadSchema(filepath) {
         return new Promise((resolve, reject) => {
             readFile(filepath, 'utf-8', (err, content) => {
@@ -87,7 +89,7 @@ GenerateCommand.DEFAULTS = {
     pathSolver: resolve,
     options: {
         clean: false,
-        templates: './templates',
+        templates: join(__dirname, '../templates'),
         saveGuiSchema: false,
     }
 };
