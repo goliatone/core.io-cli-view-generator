@@ -22,7 +22,7 @@ class GenerateCommand extends BaseCommand {
 
         return this.loadSchema(event.source).then((schema) => {
             return clean(event.output, o.clean).then(()=> {
-                generate(schema, o.templates, event.output, o.saveGuiSchema);
+                return generate(schema, o.templates, event.output, o.saveGuiSchema);
             }).catch((err) => {
                 this.logger.error(err);
                 return err;
@@ -49,33 +49,33 @@ class GenerateCommand extends BaseCommand {
     }
 
     static describe(prog, cmd){
-        cmd.argument('[source]', 
-            'Path to directory with models', 
-            /.*/, 
+        cmd.argument('[source]',
+            'Path to directory with models',
+            /.*/,
             GenerateCommand.DEFAULTS.source
         );
-        
-        cmd.argument('[output]', 
-            'Filename for output.', 
-            /.*/, 
+
+        cmd.argument('[output]',
+            'Filename for output.',
+            /.*/,
             GenerateCommand.DEFAULTS.output
         );
-        
-        cmd.option('--clean', 
-            'Should the contents of [source] be removed before running', 
-            prog.BOOL, 
+
+        cmd.option('--clean',
+            'Should the contents of [source] be removed before running',
+            prog.BOOL,
             GenerateCommand.DEFAULTS.options.clean
         );
-        
-        cmd.option('--save-gui-schema', 
-            'Saves a copy of the intermediary GUI schema file', 
-            prog.BOOL, 
+
+        cmd.option('--save-gui-schema',
+            'Saves a copy of the intermediary GUI schema file',
+            prog.BOOL,
             GenerateCommand.DEFAULTS.options.saveGuiSchema
         );
-        
-        cmd.option('--templates <path>', 
-            '<path> to template files', 
-            null, 
+
+        cmd.option('--templates <path>',
+            '<path> to template files',
+            null,
             GenerateCommand.DEFAULTS.options.templates
         );
     }
@@ -92,7 +92,7 @@ GenerateCommand.DEFAULTS = {
     }
 };
 
-GenerateCommand.COMMAND_NAME = 'open';
+GenerateCommand.COMMAND_NAME = 'generate';
 GenerateCommand.DESCRIPTION = 'Generate views from a JSON schema';
 
 module.exports = GenerateCommand;
