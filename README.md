@@ -1,7 +1,7 @@
 
 Generate CRUD views from a (swagerish) model schema. If you are using Waterline, you can generate the schema using the [waterline-to-json-schema](https://github.com/goliatone/waterline-to-json-schema) module.
 
-### CLI 
+### CLI
 
 ```
    scaffold 0.1.3 - CRUD view generator
@@ -170,6 +170,7 @@ https://github.com/balderdashy/waterline-docs/blob/master/models/validations.md
 ```
 
 ### Swagger
+
 The generated schema can be used in the `definitions` part of a Swagger Manifest. If you use Swagger with your API you can extend the `definitions` with the generated JSON.
 
 ```js
@@ -258,6 +259,24 @@ To debug you might want to show what a field metadata contains. You can add the 
     },
     "subType": "array",
     "relType": "many-to-one"
+}
+```
+
+### Templates
+
+### Field
+
+```json
+{
+    "name": "parent",
+    "label": "Parent",
+    "entityType": {
+        "$ref": "#/definitions/location"
+    },
+    "uri": "/location",
+    "type": "text",
+    "element": "select",
+    "relType": "one-to-many"
 }
 ```
 
