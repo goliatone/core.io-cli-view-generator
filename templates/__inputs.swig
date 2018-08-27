@@ -14,6 +14,9 @@
                 />
         </div>
     {%-elseif item.entityType === 'object' %}
+    {#
+    This is for a rich text editor for Objects, code mirror or something. 
+    #}
     <div class="form-group">
         <label for="{{item.name}}">{{item.label}}</label>
         <textarea name="{{item.name}}" {%if item.required%}required{%endif%} {%if item.pattern%}pattern="{{item.pattern}}"{%endif%}
@@ -58,6 +61,13 @@
                     <option value="{{option}}">{{option|title}}</option>
                 {% endfor %}
                 </select>
+            </div>
+    {%-elseif item.element === "textarea" %}
+            <div class="form-group">
+                 <label for="{{item.name}}">{{item.label}}</label>
+                <textarea name="{{item.name}}" {%if item.required%}required{%endif%} {%if item.pattern%}pattern="{{item.pattern}}"{%endif%}
+                    id="{{identity + '_' + item.name}}"
+                    class="form-control"><%= record.{{item.name}} ? record.{{item.name}} : '{{item.default}}' %></textarea>
             </div>
     {%-elseif item.element === "input" %}
             <div class="form-group">
