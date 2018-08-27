@@ -21,59 +21,59 @@ class CompileCommand extends BaseCommand {
 
         // this.validateTemplateDir(o.templates);
 
-        return this.loadSchema(event.source).then((schema) => {
+        return this.loadSchema(event.source).then(schema => {
             console.log('Schema loaded...');
-            return clean(event.output, o.clean).then(()=> {
+            return clean(event.output, o.clean).then(_ => {
                 console.log('output cleaned...');
                 generate(schema, o.templates, event.output, o.saveGuiSchema);
-            }).catch((err)=>{
+            }).catch((err) => {
                 this.logger.error(err);
                 return err;
             });
-        }).catch((err)=> {
+        }).catch(err => {
             this.logger.error(err);
             return err;
         });
     }
 
-    validateTemplateDir(templates){
+    validateTemplateDir(templates) {
 
     }
 
     loadSchema(filepath) {
         return new Promise((resolve, reject) => {
             readFile(filepath, 'utf-8', (err, content) => {
-                if(err) reject(err);
+                if (err) reject(err);
                 try {
                     let models = JSON.parse(content);
                     resolve(models);
-                } catch(e) {
+                } catch (e) {
                     reject(e);
                 }
             });
         });
     }
-    static describe(prog, cmd){
-        cmd.argument('[source]', 
-            'Path to gui-schema', 
-            /.*/, 
+    static describe(prog, cmd) {
+        cmd.argument('[source]',
+            'Path to gui-schema',
+            /.*/,
             CompileCommand.DEFAULTS.source
         );
 
-        cmd.argument('[output]', 'Filename for output.', 
-            /.*/, 
+        cmd.argument('[output]', 'Filename for output.',
+            /.*/,
             CompileCommand.DEFAULTS.output
         );
 
-        cmd.option('--clean', 
-            'Should the contents of [source] be removed before running', 
-            prog.BOOL, 
+        cmd.option('--clean',
+            'Should the contents of [source] be removed before running',
+            prog.BOOL,
             CompileCommand.DEFAULTS.options.clean
         );
 
-        cmd.option('--templates <path>', 
-            '<path> to template files', 
-            null, 
+        cmd.option('--templates <path>',
+            '<path> to template files',
+            null,
             CompileCommand.DEFAULTS.options.templates
         );
     }

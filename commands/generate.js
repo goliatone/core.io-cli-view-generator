@@ -12,45 +12,45 @@ const join = require('path').join;
 class GenerateCommand extends BaseCommand {
 
     execute(event) {
-        event = extend({}, GenerateCommand.DEFAULTS, event);
+            event = extend({}, GenerateCommand.DEFAULTS, event);
 
-        event.source = event.pathSolver(event.source);
-        event.output = event.pathSolver(event.output);
+            event.source = event.pathSolver(event.source);
+            event.output = event.pathSolver(event.output);
 
-        event.options.templates = event.pathSolver(event.options.templates);
-        this.logger.info('templates', event.options.templates);
+            event.options.templates = event.pathSolver(event.options.templates);
+            this.logger.info('templates', event.options.templates);
 
-        let o = event.options;
+            let o = event.options;
 
-        return this.loadSchema(event.source).then((schema) => {
-            return clean(event.output, o.clean).then(()=> {
-                return generate(schema, o.templates, event.output, o.saveGuiSchema);
+            return this.loadSchema(event.source).then(schema => {
+                return clean(event.output, o.clean).then(() => {
+                    return generate(schema, o.templates, event.output, o.saveGuiSchema);
+                }).catch((err) => {
+                    this.logger.error(err);
+                    return err;
+                });
             }).catch((err) => {
                 this.logger.error(err);
                 return err;
             });
-        }).catch((err)=> {
-            this.logger.error(err);
-            return err;
-        });
-    }
-    //@TODO Make BaseCommand.loadJSON
+        }
+        //@TODO Make BaseCommand.loadJSON
     loadSchema(filepath) {
         return new Promise((resolve, reject) => {
             readFile(filepath, 'utf-8', (err, content) => {
-                if(err) reject(err);
+                if (err) reject(err);
                 try {
                     let models = JSON.parse(content);
                     console.log('models loaded', models && models.length);
                     resolve(models);
-                } catch(e) {
+                } catch (e) {
                     reject(e);
                 }
             });
         });
     }
 
-    static describe(prog, cmd){
+    static describe(prog, cmd) {
         cmd.argument('[source]',
             'Path to directory with models',
             /.*/,
