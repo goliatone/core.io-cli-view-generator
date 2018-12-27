@@ -8,13 +8,14 @@ const Generate = require('./generate');
  * if a `namespace` is given then commands will 
  * be added as sub-commands.
  */
-module.exports.attach = function $attach(app, namespace=false) {
-    
+module.exports.attach = function $attach(app, namespace = false) {
+
     const context = {
         namespace,
         prog: app.prog
     };
 
-    Compile.attach(context);
     Generate.attach(context);
+    Compile.attach(context);
+
 };
