@@ -19,15 +19,17 @@ class CompileCommand extends BaseCommand {
         event.options.templates = event.pathSolver(event.options.templates);
 
         let o = event.options;
+        o.logger = this.logger;
 
-        if (event.options.transform) {
-            event.options.transform = event.pathSolver(event.options.transform);
+        if (o.transform) {
+            o.transform = event.pathSolver(o.transform);
         }
         // this.validateTemplateDir(o.templates);
 
         return this.loadSchema(event.source).then(schema => {
-            return applyTransform(event.options, schema).then(schema => {
+            return applyTransform(schema, o).then(schema => {
                 return clean(event.output, o.clean).then(_ => {
+                    //TODO: Take obect instead of all these paramters!
                     return generate(schema, o.templates, event.output, o.saveGuiSchema);
                 });
             });
@@ -78,8 +80,13 @@ class CompileCommand extends BaseCommand {
             CompileCommand.DEFAULTS.options.clean
         );
 
-        cmd.option('--transform <path>',
+        cmd.option('-tr <path>, --transform <path>',
             '<path> to JS file to transform schema file. Use it to modify fields',
+            cmd.STRING
+        );
+
+        cmd.option('-tc <path>, --transform-context <path>',
+            '<path> to JSON file with data for transform script',
             cmd.STRING
         );
 
