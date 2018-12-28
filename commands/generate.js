@@ -19,14 +19,22 @@ class GenerateCommand extends BaseCommand {
         event.output = event.pathSolver(event.output);
 
         event.options.templates = event.pathSolver(event.options.templates);
-        this.logger.info('templates', event.options.templates);
+
+        this.logger.debug('templates', event.options.templates);
 
         let o = event.options;
 
         return this.loadSchema(event.source).then(schema => {
             return clean(event.output, o.clean).then(_ => {
                 return mkdirp(event.output, o.mkdir).then(_ => {
-                    return generate(schema, o.templates, event.output, o.saveGuiSchema);
+                    return generate({
+                        schema,
+                        debug: o.debug,
+                        logger: this.logger,
+                        target: event.output,
+                        templates: o.templates,
+                        saveGuiSchema: o.saveGuiSchema
+                    });
                 });
             });
         }).catch(err => {
@@ -47,7 +55,7 @@ class GenerateCommand extends BaseCommand {
                 if (err) reject(err);
                 try {
                     let models = JSON.parse(content);
-                    console.log('models loaded', models && models.length);
+                    this.logger.debug('models loaded', models && models.length);
                     resolve(models);
                 } catch (e) {
                     reject(e);
