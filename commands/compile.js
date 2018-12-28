@@ -1,11 +1,10 @@
 'use strict';
 const extend = require('gextend');
 const BaseCommand = require('base-cli-commands').BaseCommand;
-
 const clean = require('../lib/task-clean');
 const generate = require('../lib/generator').generateFromGUISchema;
 const readFile = require('fs').readFile;
-const resolve = require('path').resolve;
+const { resolve, join } = require('path');
 const applyTransform = require('../lib/task-apply-external-transform');
 
 class CompileCommand extends BaseCommand {
@@ -26,9 +25,18 @@ class CompileCommand extends BaseCommand {
         }
         // this.validateTemplateDir(o.templates);
 
+        this.logger.debug('Compiling view templates...');
+
         return this.loadSchema(event.source).then(schema => {
+
+            this.logger.debug('schema loaded...');
+
             return applyTransform(schema, o).then(schema => {
+
+                this.logger.debug('schema transformed...');
+
                 return clean(event.output, o.clean).then(_ => {
+                    this.logger.debug('output directory %s cleaned: %s...', event.output, o.clean);
                     return generate({
                         schema,
                         debug: o.debug,
@@ -40,7 +48,9 @@ class CompileCommand extends BaseCommand {
                 });
             });
         }).catch(err => {
+            this.logger.error('Compile step failed!');
             console.error(err);
+            this.logger.error(err);
             // this.logger.error(err);
             return err;
         });
@@ -75,7 +85,7 @@ class CompileCommand extends BaseCommand {
             CompileCommand.DEFAULTS.source
         );
 
-        cmd.argument('[output]', 'Filename for output.',
+        cmd.argument('[output]', 'Directory for generated views',
             /.*/,
             CompileCommand.DEFAULTS.output
         );
@@ -123,7 +133,7 @@ CompileCommand.DEFAULTS = {
     options: {
         clean: false,
         debug: false,
-        templates: './templates',
+        templates: join(__dirname, '../templates'),
         saveGuiSchema: false,
         // transform: ''
     }
