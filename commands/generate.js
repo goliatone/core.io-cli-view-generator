@@ -13,6 +13,9 @@ const join = require('path').join;
 class GenerateCommand extends BaseCommand {
 
     execute(event) {
+        this.logger.info('----------- EXECUTE ----------');
+        this.logger.info(event);
+
         event = extend({}, GenerateCommand.DEFAULTS, event);
 
         event.source = event.pathSolver(event.source);
@@ -20,20 +23,20 @@ class GenerateCommand extends BaseCommand {
 
         event.options.templates = event.pathSolver(event.options.templates);
 
-        this.logger.debug('templates', event.options.templates);
+        this.logger.debug('templates:', event.options.templates);
 
-        let o = event.options;
+        const opts = event.options;
 
         return this.loadSchema(event.source).then(schema => {
-            return clean(event.output, o.clean).then(_ => {
-                return mkdirp(event.output, o.mkdir).then(_ => {
+            return clean(event.output, opts.clean).then(_ => {
+                return mkdirp(event.output, opts.mkdir).then(_ => {
                     return generate({
                         schema,
-                        debug: o.debug,
+                        debug: opts.debug,
                         logger: this.logger,
                         target: event.output,
-                        templates: o.templates,
-                        saveGuiSchema: o.saveGuiSchema
+                        templates: opts.templates,
+                        saveGuiSchema: opts.saveGuiSchema
                     });
                 });
             });
