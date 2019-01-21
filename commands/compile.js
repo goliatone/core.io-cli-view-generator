@@ -10,6 +10,8 @@ const applyTransform = require('../lib/task-apply-external-transform');
 class CompileCommand extends BaseCommand {
 
     execute(event) {
+        this.logger.info('----------- EXECUTE ----------');
+        this.logger.info(event);
         event = extend({}, CompileCommand.DEFAULTS, event);
 
         event.source = event.pathSolver(event.source);
@@ -17,13 +19,16 @@ class CompileCommand extends BaseCommand {
 
         event.options.templates = event.pathSolver(event.options.templates);
 
-        let o = event.options;
-        o.logger = this.logger;
+        this.logger.debug('templates:', event.options.templates);
 
-        if (o.transform) {
-            o.transform = event.pathSolver(o.transform);
+        let opts = event.options;
+        opts.logger = this.logger;
+
+        if (opts.transform) {
+            opts.transform = event.pathSolver(opts.transform);
         }
-        // this.validateTemplateDir(o.templates);
+
+        // this.validateTemplateDir(opts.templates);
 
         this.logger.debug('Compiling view templates...');
 
@@ -31,19 +36,19 @@ class CompileCommand extends BaseCommand {
 
             this.logger.debug('schema loaded...');
 
-            return applyTransform(schema, o).then(schema => {
+            return applyTransform(schema, opts).then(schema => {
 
                 this.logger.debug('schema transformed...');
 
-                return clean(event.output, o.clean).then(_ => {
-                    this.logger.debug('output directory %s cleaned: %s...', event.output, o.clean);
+                return clean(event.output, opts.clean).then(_ => {
+                    this.logger.debug('output directory %s cleaned: %s...', event.output, opts.clean);
                     return generate({
                         schema,
-                        debug: o.debug,
-                        logger: o.logger,
+                        debug: opts.debug,
+                        logger: opts.logger,
                         target: event.output,
-                        templates: o.templates,
-                        saveGuiSchema: o.saveGuiSchema
+                        templates: opts.templates,
+                        saveGuiSchema: opts.saveGuiSchema
                     });
                 });
             });
