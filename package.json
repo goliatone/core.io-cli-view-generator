@@ -1,6 +1,6 @@
 {
   "name": "core.io-view-generator",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "CRUD view generator",
   "main": "index.js",
   "scripts": {
