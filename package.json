@@ -28,17 +28,16 @@
   },
   "homepage": "https://github.com/goliatone/core.io-cli-view-generator#readme",
   "dependencies": {
-    "base-cli-commands": "*",
+    "base-cli-commands": "^0.3.0",
     "expand-files": "^0.8.4",
     "fs-exists-promised": "^0.2.0",
-    "fs-extra": "^7.0.1",
-    "gextend": "^0.3.0",
-    "gkeypath": "^0.6.0",
-    "handlebars": "^4.0.6",
+    "fs-extra": "^10.0.1",
+    "gextend": "^0.8.0",
+    "gkeypath": "^0.14.0",
+    "handlebars": "^4.7.7",
     "mkdir-promise": "^1.0.0",
     "mkdirp-promise": "^5.0.1",
-    "pretty-camel": "0.0.8",
-    "rmfr": "^1.0.2",
+    "rmfr": "^2.0.0",
     "swig": "^1.4.2"
   }
 }
