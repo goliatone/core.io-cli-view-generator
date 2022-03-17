@@ -38,6 +38,6 @@
     "mkdir-promise": "^1.0.0",
     "mkdirp-promise": "^5.0.1",
     "rmfr": "^2.0.0",
-    "swig": "^1.4.2"
+    "swig-templates": "^2.0.2"
   }
 }
