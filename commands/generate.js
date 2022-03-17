@@ -50,7 +50,7 @@ class GenerateCommand extends BaseCommand {
 
     /**
      * @TODO Make BaseCommand.loadJSON
-     * @param {String} filepath 
+     * @param {String} filepath
      */
     loadSchema(filepath) {
         return new Promise((resolve, reject) => {
@@ -104,7 +104,7 @@ class GenerateCommand extends BaseCommand {
 
         cmd.option('--templates <path>',
             '<path> to template files',
-            null,
+            cmd.STRING,
             GenerateCommand.DEFAULTS.options.templates
         );
     }
@@ -124,7 +124,7 @@ GenerateCommand.DEFAULTS = {
 
 GenerateCommand.COMMAND_NAME = 'generate';
 GenerateCommand.DESCRIPTION = 'Generate views from a JSON schema. Optionally generate GUI schema.';
-GenerateCommand.HELP = `The generate commanwill parse a JSON schema and generate an intermediary 
+GenerateCommand.HELP = `The generate commanwill parse a JSON schema and generate an intermediary
      GUI schema, which can then be modified to handle the output in the templates.`;
 
 module.exports = GenerateCommand;
