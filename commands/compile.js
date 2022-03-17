@@ -119,7 +119,7 @@ class CompileCommand extends BaseCommand {
 
         cmd.option('--templates <path>',
             '<path> to template files',
-            null,
+            cmd.STRING,
             CompileCommand.DEFAULTS.options.templates
         );
 
@@ -146,9 +146,9 @@ CompileCommand.DEFAULTS = {
 
 CompileCommand.COMMAND_NAME = 'compile';
 CompileCommand.DESCRIPTION = 'Generate views from a GUI schema.';
-CompileCommand.HELP = `Compile should generate a JSON file from a bunch of Waterline models. 
+CompileCommand.HELP = `Compile should generate a JSON file from a bunch of Waterline models.
 
-     The generated file can be used with the generate command. If you want to modify the GUI JSON file, 
+     The generated file can be used with the generate command. If you want to modify the GUI JSON file,
      say to change the order of the fields or to remove some fiels, do you using the --transform flag.`;
 
 
