@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/goliatone/core.io-cli-view-generator#readme",
   "dependencies": {
-    "base-cli-commands": "^0.3.0",
+    "base-cli-commands": "^0.4.0",
     "expand-files": "^0.8.4",
     "fs-exists-promised": "^0.2.0",
     "fs-extra": "^10.0.1",
